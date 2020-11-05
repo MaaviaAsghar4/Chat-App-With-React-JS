@@ -1,0 +1,35 @@
+.login-box{
+    width: 50%;
+    margin: 10px auto;
+    border: 2px solid #6abff0;
+    border-radius: 0.4rem;
+    padding: 10px 10px;
+    text-align: center;
+    box-shadow: 0 0 10px #70afed;
+}
+
+.login-head{
+    color: #70afed;
+}
+
+.login-btn{
+    width: 100%;
+    border: 2px solid #70afed;
+    background: linear-gradient(180deg,#70afed,#6abff0);
+    color: #f7f7f7;
+    padding: 5px 5px;
+    border-radius: 0.4rem;
+    cursor: pointer;
+}
+
+@media (max-width: 650px) {
+    .login-box{
+        width: 70%;
+    }
+}
+
+@media (max-width: 450px) {
+    .login-box{
+        width: 90%;
+    }
+}

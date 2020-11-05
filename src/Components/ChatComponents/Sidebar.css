@@ -1,0 +1,93 @@
+.sidebar-container{
+    height: 100vh;
+    background-color: #70afed;
+    color: #fdfeff;
+    width: -25vw;
+}
+
+.sidebar-container.active {
+    height: 100vh;
+    background-color: #70afed;
+    color: #fdfeff;
+    width: 25vw !important;
+}
+
+.user-profile{
+    display: none;
+}
+
+.user-profile.active{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px 10px;
+}
+
+.user-img{
+    width: 80px;
+    border-radius: 50%;
+}
+
+.firebaseuser-img{
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.toggler{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px;
+    cursor: pointer;
+}
+
+.line{
+    width: 25px;
+    height: 3px;
+    margin-top: 5px;
+    background-color: #f7f7f7;
+    border-radius: 0.3rem;
+    margin-left: auto;
+}
+
+.firebase-user{
+    display: none;
+}
+
+.firebase-user.active{
+    display: block;
+}
+
+.user-list{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 5px 5px;
+}
+
+.user-list:hover{
+    background-color: skyblue;
+}
+
+.current-user{
+    text-align: center;
+}
+
+.user-container{
+    height: 40vh;
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    .sidebar-container.active{
+        width: 50vw !important;
+    }
+}
+
+@media (max-width: 450px) {
+    .user-img{
+        width: 50px;
+    }
+}
