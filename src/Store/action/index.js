@@ -1,6 +1,6 @@
 import firebase from '../../Config/firebase'
 
-const auth_data = () => {
+const auth_data = (history) => {
     return dispatch => {
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider).then(function (result) {
@@ -13,14 +13,14 @@ const auth_data = () => {
                 userPhoto: user.photoURL,
                 userUid: user.uid
             }
-
+            console.log(user)
+            dispatch({ type: 'SetUser', user: user })
             firebase.database().ref('/').child(`user/${user.uid}`).set(firebaseUser)
             .then(()=>{
                 alert("User Created");
-                window.location.href = '/chat'
+                history.push('/chat')
             })
 
-            dispatch({ type: 'SetUser', user: user })
         }).catch(function (error) {
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -38,7 +38,6 @@ const get_firebaseUsers = () => {
         let userinfo = []
         firebase.database().ref('/').child('user').on('child_added', userData=>{
             userinfo.push(userData.val())
-            console.log(userData.val())
             dispatch({type: 'getUser', dbuser: userinfo})
         })
     }

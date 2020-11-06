@@ -8,14 +8,16 @@ const Sidebar = (props) => {
 
     let [toggle, setToggle] = useState(true)
     // let [firebaseData, setFirebaseData] = []
+    let user = props.user
+    console.log(props.user)
+    let fbaseuser = props.database
     let classToggle = () => {
         setToggle(!toggle)
     }
-    // console.log(props.database, props.user)
-
     useEffect(() => {
         props.get_firebaseUsers()
     }, [])
+
 
     return (
         <div className={toggle ? 'sidebar-container' : 'sidebar-container active'}>
@@ -25,16 +27,21 @@ const Sidebar = (props) => {
                 <div className='line'></div>
             </div>
             <div className={toggle ? 'user-profile' : 'user-profile active'}>
-                <img className='user-img' src={Userimage} alt='' />
-                <h3>Name</h3>
+                <img className='user-img' src={user.displayName? user.photoURL :Userimage} alt='' />
+                <h3 className='user-name'>{user.displayName? user.displayName :'Name'}</h3>
             </div>
             <div className={toggle ? 'firebase-user' : 'firebase-user active'}>
                 <h2 className='current-user'>Current Users</h2>
                 <div className='user-container'>
-                    <li className='user-list'>
-                        <img src={Userimage} className='firebaseuser-img' alt='' />
-                        <span>Name</span>
-                    </li>
+                    {fbaseuser.map((v, i) => {
+                        return ( user.uid !== v.userUid &&
+                            <li key={i} className='user-list'>
+                                <img src={v.userPhoto} className='firebaseuser-img' alt='' />
+                                <span>{v.userName}</span>
+                            </li>
+                        )
+                    })
+                    }
                 </div>
             </div>
         </div>

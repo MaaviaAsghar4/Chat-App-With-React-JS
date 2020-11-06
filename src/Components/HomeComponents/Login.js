@@ -2,10 +2,12 @@ import React from 'react'
 import './Login.css'
 import { connect } from 'react-redux'
 import { auth_data } from '../../Store/action'
+import { useHistory } from 'react-router-dom'
 
 const Login = (props) => {
+    let history = useHistory()
     let login = () => {
-        props.auth_data()
+        props.auth_data(history)
     }
     return (
         <div className='login-box'>
@@ -16,7 +18,7 @@ const Login = (props) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    auth_data: () => dispatch(auth_data())
+    auth_data: (history) => dispatch(auth_data(history))
 })
 
 

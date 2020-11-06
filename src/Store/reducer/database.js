@@ -1,15 +1,13 @@
 const databaseState = {
-    firebaseUser: []
+    firebaseUser: [{}]
 }
 
 
 const auth = (state = databaseState, action) => {
-    console.log(action.dbuser)
     switch (action.type) {
         case "getUser":
             return ({
-                ...state,
-                firebaseUser: [action.dbuser,...state.firebaseUser]
+                firebaseUser: action.dbuser
             })
         default:
             return state

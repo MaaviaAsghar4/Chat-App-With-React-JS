@@ -19,13 +19,14 @@
 .user-profile.active{
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     padding: 10px 10px;
 }
 
 .user-img{
     width: 80px;
     border-radius: 50%;
+    margin-right: 10px;
 }
 
 .firebaseuser-img{
@@ -78,16 +79,33 @@
 .user-container{
     height: 40vh;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 @media (max-width: 768px) {
     .sidebar-container.active{
         width: 50vw !important;
     }
+
+    .user-name{
+        font-size: 0.9rem;
+    }
 }
 
 @media (max-width: 450px) {
     .user-img{
         width: 50px;
+    }
+
+    .current-user{
+        font-size: 1.2rem;
+    }
+
+    .firebaseuser-img{
+        width: 30px;
+    }
+
+    .user-list span{
+        font-size: 0.9rem;
     }
 }
