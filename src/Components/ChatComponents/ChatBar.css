@@ -1,7 +1,8 @@
 .chatbar-container{
     height: 100vh;
     background-color: #f7f7f7;
-    width: 75vw;
+    /* width: 75vw; */
+    width: 100%;
     position: relative;
 }
 
@@ -81,11 +82,19 @@
     width: fit-content;
     padding: 5px 5px;
     border-radius: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     color: #70afed;
     font-weight: bold;
     margin-left: auto;
     margin-right: 10px;
     margin-top: 10px;
+}
+
+.sender-message img{
+    margin-right: 10px;
+    border-radius: 50%;
 }
 
 .reciever-message{
@@ -94,12 +103,20 @@
     width: fit-content;
     padding: 5px 5px;
     border-radius: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background-color: #70afed;
     color: #f7f7f7;
     font-weight: bold;
     margin-right: auto;
     margin-left: 10px;
     margin-top: 10px;
+}
+
+.reciever-message img{
+    margin-right: 10px;
+    border-radius: 50%;
 }
 
 @media (max-width: 550px) {

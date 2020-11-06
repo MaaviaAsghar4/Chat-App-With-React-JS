@@ -3,7 +3,7 @@ const databaseState = {
 }
 
 
-const auth = (state = databaseState, action) => {
+const database = (state = databaseState, action) => {
     switch (action.type) {
         case "getUser":
             return ({
@@ -14,4 +14,4 @@ const auth = (state = databaseState, action) => {
     }
 }
 
-export default auth
+export default database
