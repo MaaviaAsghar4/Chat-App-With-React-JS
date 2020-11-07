@@ -60,8 +60,8 @@ const ChatBar = ({ user, chatuser }) => {
             </div>
             <div className='usermessage-container'>
                 {
-                    messageObj.map((v) => {
-                        return v.map((v,i) => {
+                    messageObj.map((value) => {
+                        return value.map((v,i) => {
                             return (v.senderUid &&
                                 <div className={v.senderUid === user.uid ? 'sender-message' : 'reciever-message'} key={i}>
                                     <img src={v.senderPhoto} width={20} alt='' />
