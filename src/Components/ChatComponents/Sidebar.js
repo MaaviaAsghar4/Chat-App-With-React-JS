@@ -4,18 +4,15 @@ import Userimage from '../../images/images.png'
 import { connect } from 'react-redux'
 import { get_firebaseUsers, get_chatuser } from '../../Store/action'
 
-const Sidebar = (props) => {
+const Sidebar = ({user, database, get_firebaseUsers, get_chatuser}) => {
 
     let [toggle, setToggle] = useState(true)
-    // let [firebaseData, setFirebaseData] = []
-    let user = props.user
-    let fbaseuser = props.database
     let classToggle = () => {
         setToggle(!toggle)
     }
     useEffect(() => {
-        props.get_firebaseUsers()
-    }, [])
+        get_firebaseUsers()
+    }, [get_firebaseUsers])
 
 
     return (
@@ -32,9 +29,9 @@ const Sidebar = (props) => {
             <div className={toggle ? 'firebase-user' : 'firebase-user active'}>
                 <h2 className='current-user'>Current Users</h2>
                 <div className='user-container'>
-                    {fbaseuser.map((v, i) => {
+                    {database.map((v, i) => {
                         return ( user.uid !== v.userUid &&
-                            <li key={i} className='user-list' onClick={()=>{props.get_chatuser(v)}}>
+                            <li key={i} className='user-list' onClick={()=>{get_chatuser(v)}}>
                                 <img src={v.userPhoto} className='firebaseuser-img' alt='' />
                                 <span>{v.userName}</span>
                             </li>

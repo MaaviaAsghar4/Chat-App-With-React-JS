@@ -1,25 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './ChatBar.css'
 import Logo from '../../images/chatLogo.png'
 import Image from '../../images/images.png'
 import { connect } from 'react-redux'
 import firebase from '../../Config/firebase'
-import { get_userMessages } from '../../Store/action'
 
-const ChatBar = (props) => {
-    let chatuser = props.chatuser
-    let user = props.user
+const ChatBar = ({ user, chatuser }) => {
     let [message, setMessage] = useState('')
-    let [messageObj, setMessageObj] = useState([{}])
+    let [messageObj, setMessageObj] = useState([])
     let mergeUid = ''
-    console.log(props.messageReducer)
     let getMessages = () => {
-        // messageObj.push({
-        //     messageSender: user.displayName,
-        //     senderPhoto: user.photoURL,
-        //     senderUid: user.uid,
-        //     message: message
-        // })
         mergeUid = uidMerge(user.uid, chatuser.userUid)
         firebase.database().ref(`/chat/${mergeUid}`).push({
             messageSender: user.displayName,
@@ -27,9 +17,7 @@ const ChatBar = (props) => {
             senderUid: user.uid,
             message: message
         })
-        messageObj[0] = props.messageReducer
-        setMessageObj(messageObj)
-        console.log(messageObj)
+        getuserMessages(mergeUid)
 
         setMessage('')
     }
@@ -41,9 +29,24 @@ const ChatBar = (props) => {
         }
     }
 
-    useEffect(() => {
-        props.get_userMessages(mergeUid)
-    }, [])
+    let getuserMessages = mergeUid => {
+        firebase.database().ref(`/`).child(`chat/${mergeUid}`).on('value', data => {
+
+            let firebaseData = data.val()
+            console.log(Object.values(firebaseData))
+            // messageObj = [data.val()]
+            // messageObj.push({
+            //         messageSender: firebaseData.messageSender,
+            //         senderPhoto: firebaseData.senderPhoto,
+            //         senderUid: firebaseData.senderUid,
+            //         message: firebaseData.message
+            //     })
+            messageObj = []
+            messageObj.push(Object.values(firebaseData))
+            setMessageObj(messageObj)
+            console.log(messageObj)
+        })
+    }
 
     return (
         <div className='chatbar-container'>
@@ -57,14 +60,15 @@ const ChatBar = (props) => {
             </div>
             <div className='usermessage-container'>
                 {
-                    messageObj.map((v, i) => {
-                        console.log(v.message)
-                        return (v.senderUid &&
-                            <div className={v.senderUid === user.uid ? 'sender-message' : 'reciever-message'} key={i}>
-                                <img src={v.senderPhoto} width={20} alt='' />
-                                <span>{v.senderUid === user.uid ? 'You:' : `${v.messageSender}:`} {v.message}</span>
-                            </div>
-                        )
+                    messageObj.map((v) => {
+                        return v.map((v,i) => {
+                            return (v.senderUid &&
+                                <div className={v.senderUid === user.uid ? 'sender-message' : 'reciever-message'} key={i}>
+                                    <img src={v.senderPhoto} width={20} alt='' />
+                                    <span>{v.senderUid === user.uid ? 'You:' : `${v.messageSender}:`} {v.message}</span>
+                                </div>
+                            )
+                        })
                     })
                 }
             </div>
@@ -79,11 +83,7 @@ const ChatBar = (props) => {
 const mapStateToProps = state => ({
     user: state.authentication.user,
     chatuser: state.chatuser.user,
-    messageReducer: state.messageReducer.fbMessage
 })
 
-const mapDispatchToProps = dispatch => ({
-    get_userMessages: (mergeUid) => dispatch(get_userMessages(mergeUid))
-})
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChatBar)
+export default connect(mapStateToProps, null)(ChatBar)

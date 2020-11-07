@@ -60,21 +60,10 @@ const get_chatuser = (user) => {
     }
 }
 
-const get_userMessages = (uid) => {
-    return dispatch => {
-        // let messages = []
-        firebase.database().ref(`/chat/${uid}`).on('child_added', data=>{
-            // console.log(data.val())
-            // messages.push(data.val())
-            dispatch({type: 'SetMessage', payload: data.val()})
-        })
-    }
-}
 
 export {
     auth_data,
     sign_out,
     get_firebaseUsers,
     get_chatuser,
-    get_userMessages,
 }
